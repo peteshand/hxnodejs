@@ -1,5 +1,5 @@
 /*
- * Copyright (C)2014-2017 Haxe Foundation
+ * Copyright (C)2014-2019 Haxe Foundation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -22,7 +22,11 @@
 package js.node;
 
 import haxe.extern.EitherType;
+#if haxe4
+import js.lib.Error;
+#else
 import js.Error;
+#end
 import js.node.Buffer;
 import js.node.zlib.*;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C)2014-2017 Haxe Foundation
+ * Copyright (C)2014-2019 Haxe Foundation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -113,10 +113,9 @@ typedef ListeningEventAddress = {
 }
 
 @:jsRequire("cluster")
-@:fakeEnum(Int)
-extern enum ClusterSchedulingPolicy {
-	SCHED_NONE;
-	SCHED_RR;
+@:enum extern abstract ClusterSchedulingPolicy(Int) {
+	var SCHED_NONE;
+	var SCHED_RR;
 }
 
 /**

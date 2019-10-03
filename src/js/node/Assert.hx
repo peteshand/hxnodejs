@@ -1,5 +1,5 @@
 /*
- * Copyright (C)2014-2017 Haxe Foundation
+ * Copyright (C)2014-2019 Haxe Foundation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -22,6 +22,11 @@
 package js.node;
 
 import haxe.extern.EitherType;
+#if haxe4
+import js.lib.RegExp;
+#else
+import js.RegExp;
+#end
 
 /**
 	This module is used for writing unit tests for your applications
@@ -32,7 +37,7 @@ extern class Assert {
 		Throws an `AssertionError`. If `message` is falsy, the error message is set as the values of `actual` and `expected` separated by the provided `operator`.
 		Otherwise, the error message is the value of `message`.
 	**/
-	static function fail<T>(actual:T, expected:T, message:String, operator:String):Void;
+	static function fail<T>(actual:T, expected:T, message:String, operator_:String):Void;
 
 	/**
 		Tests if value is truthy.
@@ -157,4 +162,4 @@ extern class Assert {
 /**
 	a class, RegExp or function.
 **/
-private typedef ThrowsExpectedError = EitherType<Class<Dynamic>, EitherType<js.RegExp, Dynamic->Bool>>;
+private typedef ThrowsExpectedError = EitherType<Class<Dynamic>, EitherType<RegExp, Dynamic->Bool>>;

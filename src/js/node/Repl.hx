@@ -1,5 +1,5 @@
 /*
- * Copyright (C)2014-2017 Haxe Foundation
+ * Copyright (C)2014-2019 Haxe Foundation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -24,6 +24,11 @@ package js.node;
 import js.node.stream.Readable.IReadable;
 import js.node.stream.Writable.IWritable;
 import js.node.repl.REPLServer;
+#if haxe4
+import js.lib.Error;
+#else
+import js.Error;
+#end
 
 /**
 	A Read-Eval-Print-Loop (REPL) is available both as a standalone program and easily includable in other programs.
@@ -74,7 +79,7 @@ typedef ReplOptions = {
 		Defaults to an async wrapper for `eval`.
 		Arguments: cmd, context, filename, callback
 	**/
-	@:optional var eval:String->Dynamic<Dynamic>->String->(js.Error->Dynamic->Void)->Void;
+	@:optional var eval:String->Dynamic<Dynamic>->String->(Error->Dynamic->Void)->Void;
 
 	/**
 		whether or not the writer function should output colors.

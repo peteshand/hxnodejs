@@ -1,5 +1,5 @@
 /*
- * Copyright (C)2014-2017 Haxe Foundation
+ * Copyright (C)2014-2019 Haxe Foundation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -23,8 +23,12 @@ package js.node;
 
 import haxe.DynamicAccess;
 import haxe.extern.EitherType;
-
 import js.node.child_process.ChildProcess as ChildProcessObject;
+#if haxe4
+import js.lib.Error;
+#else
+import js.Error;
+#end
 
 /**
 	Common options for all `ChildProcess` methods.
@@ -260,7 +264,7 @@ typedef ChildProcessForkOptions = {
 	An error passed to the `ChildProcess.exec` callback.
 **/
 @:native("Error")
-extern class ChildProcessExecError extends js.Error {
+extern class ChildProcessExecError extends Error {
 	/**
 		the exit code of the child proces.
 	**/
@@ -273,14 +277,19 @@ extern class ChildProcessExecError extends js.Error {
 }
 
 /**
-	A callback type for the `ChildProcess.exec`.
-	It received three arguments: error, stdout, stderr.
+	A callback type for `ChildProcess.exec`.
+	It receives three arguments: `error`, `stdout`, `stderr`.
 
-	On success, error will be null. On error, error will be an instance of `Error`
+	On success, error will be `null`. On error, `error` will be an instance of `Error`
 	and `error.code` will be the exit code of the child process, and `error.signal` will be set
 	to the signal that terminated the process (see `ChildProcessExecError`).
 **/
-typedef ChildProcessExecCallback = Null<ChildProcessExecError> -> EitherType<Buffer,String> -> EitherType<Buffer,String> -> Void;
+typedef ChildProcessExecCallback =
+	#if (haxe_ver >= 4)
+	(error:Null<ChildProcessExecError>, stdout:EitherType<Buffer,String>, stderr:EitherType<Buffer,String>) -> Void;
+	#else
+	Null<ChildProcessExecError> -> EitherType<Buffer,String> -> EitherType<Buffer,String> -> Void;
+	#end
 
 
 /**
@@ -320,7 +329,7 @@ typedef ChildProcessSpawnSyncResult = {
 	/**
 		The error object if the child process failed or timed out
 	**/
-	var error:js.Error;
+	var error:Error;
 }
 
 

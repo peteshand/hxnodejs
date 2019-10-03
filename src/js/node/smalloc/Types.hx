@@ -1,5 +1,5 @@
 /*
- * Copyright (C)2014-2017 Haxe Foundation
+ * Copyright (C)2014-2019 Haxe Foundation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -25,14 +25,14 @@ package js.node.smalloc;
     Enum of possible external array types.
 **/
 @:jsRequire("smalloc", "Types")
-@:fakeEnum(Int) extern enum Types {
-    Int8;
-    Uint8;
-    Int16;
-    Uint16;
-    Int32;
-    Uint32;
-    Float;
-    Double;
-    Uint8Clamped;
+@:enum extern abstract Types(Int) {
+    var Int8;
+    var Uint8;
+    var Int16;
+    var Uint16;
+    var Int32;
+    var Uint32;
+    var Float;
+    var Double;
+    var Uint8Clamped;
 }

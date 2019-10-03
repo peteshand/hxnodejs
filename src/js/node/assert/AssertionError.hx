@@ -1,5 +1,5 @@
 /*
- * Copyright (C)2014-2017 Haxe Foundation
+ * Copyright (C)2014-2019 Haxe Foundation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -21,19 +21,27 @@
  */
 package js.node.assert;
 
+#if haxe4
+import js.lib.Error;
+#else
+import js.Error;
+#end
+
 typedef AssertionErrorOptions = {
 	@:optional var actual:Dynamic;
 	@:optional var expected:Dynamic;
+	#if (haxe_ver < 4)
 	@:optional var operator:String;
+	#end
 	@:optional var message:String;
 	@:optional var stackStartFunction:Dynamic;
 }
 
 @:jsRequire("assert", "AssertionError")
-extern class AssertionError extends js.Error {
+extern class AssertionError extends Error {
 	var actual:Dynamic;
 	var expected:Dynamic;
-	var operator:String;
+	@:native("operator") var operator_:String;
 	var generatedMessage:Bool;
 	function new(options:AssertionErrorOptions);
 }

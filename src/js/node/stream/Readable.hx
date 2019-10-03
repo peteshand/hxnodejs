@@ -1,5 +1,5 @@
 /*
- * Copyright (C)2014-2017 Haxe Foundation
+ * Copyright (C)2014-2019 Haxe Foundation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -26,6 +26,11 @@ import js.node.Buffer;
 import js.node.events.EventEmitter.Event;
 import js.node.Stream;
 import js.node.stream.Writable.IWritable;
+#if haxe4
+import js.lib.Error;
+#else
+import js.Error;
+#end
 
 /**
 	Enumeration of events emitted by the `Readable` class.
@@ -67,7 +72,7 @@ import js.node.stream.Writable.IWritable;
 	/**
 		Emitted if there was an error receiving data.
 	**/
-	var Error : ReadableEvent<js.Error->Void> = "error";
+	var Error : ReadableEvent<Error->Void> = "error";
 }
 
 /**
@@ -200,6 +205,8 @@ typedef ReadableNewOptions = {
 	@:optional var highWaterMark:Int;
 	@:optional var encoding:String;
 	@:optional var objectMode:Bool;
+	@:optional var read:Int->Void;
+	@:optional var destroy:Null<Error>->(Null<Error>->Void)->Void;
 }
 
 /**
